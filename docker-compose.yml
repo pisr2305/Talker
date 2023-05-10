@@ -1,0 +1,7 @@
+php-apache:  
+ build: ./php-apache/
+ container_name: php-apache-container
+ ports:
+  - 80:80
+ volumes:
+  - ./public-html/:/var/www/html/
