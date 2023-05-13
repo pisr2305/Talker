@@ -14,11 +14,16 @@ function phpShowFeedback($feedback_id) {
 		$feedback_text="Password must be between 8 and 16 chatcters long with at least one uppercase and lowercase character, one number and one special character(@, #, $, or #).";
 		break;
 		
-		case "803":
+		 case"803":
 		$feedback_type="danger";
 		$feedback_text="Passwords don't match";
 		break;
 
+		 case"804":
+		$feedback_type="danger";
+		$feedback_text="This email is already used!";
+		break;
+       
 		case "811":
 		$feedback_type="success";
 		$feedback_text="You have been successfully signed up";
@@ -39,6 +44,21 @@ function phpModifyDB($db_query,  $db_data) {
 
     $statement = $connection->prepare($db_query);
 	$statement->execute($db_data);
+}
+
+?>
+
+<?php
+
+// Get the information from the database
+function phpFetchDB($db_query, $db_data) {
+    global $connection;
+
+    $statement = $connection->prepare($db_query);
+    $statement->execute($db_data);
+
+    //setting the fetch mode and returning the result(it fetches a single row)fetch_assoc means to return an associative(uses named keys instead of indices) array
+    return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>
