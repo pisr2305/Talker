@@ -1,5 +1,7 @@
 <?php session_start(); 
       require("system.ctrl.php");?>
+<?php phpSendEmail("vkpillai76@gmail.com", "Hello there!",  "This is the conformation email"); ?>
+
 
 
 <!DOCTYPE html>

@@ -6,4 +6,7 @@
     ''
  ));
 
+define('SMTP_PSWD', "hfyjnzvwkuilpjyr");
+
+
  ?>
