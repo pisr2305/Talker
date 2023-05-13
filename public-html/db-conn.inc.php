@@ -12,7 +12,7 @@ try {
     //XAMPP
     $connection = new PDO('mysql:host=localhost;dbname=talker_db' , XAMPP[0] , XAMPP[1]);
 
-    print "Success connected to he database!";
+    //print "Success connected to he database!";
 
 }catch (PDOException $e) {
     print "Error!: "  . $e->getMessage() . "<br/>";
