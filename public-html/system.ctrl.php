@@ -11,39 +11,14 @@ use PHPMailer\PHPMailer\Exception;
 
 
 // Place directly inside Bootstrap container to keep the right structure of Bootstrap document
-function phpShowFeedback($feedback_id) {
+function phpShowSystemFeedback($feedback_id) {
 	switch ($feedback_id) {
-		case "801";
-		$feedback_type="danger";
-		$feedback_text="This is not a valid email address";
-		break;
-
-		case "802";
-		$feedback_type="danger";
-		$feedback_text="Password must be between 8 and 16 chatcters long with at least one uppercase and lowercase character, one number and one special character(@, #, $, or #).";
-		break;
-		
-		 case"803":
-		$feedback_type="danger";
-		$feedback_text="Passwords don't match";
-		break;
-
-		 case"804":
+	     case"804":
 		$feedback_type="danger";
 		$feedback_text="This email is already used!";
 		break;
 
-		case"804":
-			$feedback_type="danger";
-			$feedback_text="This email is already used!";
-		break;
-
-		case"805":
-		$feedback_type="danger";
-		$feedback_text="This email is not registered";
-		break;
-
-		case"806":
+	    case"806":
 		$feedback_type="danger";
 		$feedback_text="Your account has been already activated!";
 		break;
@@ -62,15 +37,52 @@ function phpShowFeedback($feedback_id) {
 		$feedback_type="warning";
 		$feedback_text="Check your email inbox and verify your email";
 		break;
+        
+	     default:
+		 $feedback_type="";
+		 $feedback_text="";
+	
 
-       default:
-		$feedback_type="danger";
+       
+    }
+
+	return [$feedback_type, $feedback_text];
+}
+
+//Only those feedback dealing form validation errors
+function phpShowInputFeedback($feedback_id) {
+	switch ($feedback_id) {
+		case "801":
+		$feedback_type="is-invalid";
+		$feedback_text="This is not a valid email address";
+		break;
+
+		case "802":
+		$feedback_type="is-invalid";
+		$feedback_text="Password must be between 8 and 16 characters long, with at least one uppercase and lowercase character, one number and one special character (@, *, $ or #).";
+		break;
+
+		case "803":
+		$feedback_type="is-invalid";
+		$feedback_text="Passwords don't match";
+		break;
+
+		case "805":
+		$feedback_type="is-invalid";
+		$feedback_text="This email is not registered!";
+		break;
+
+		default:
+		$feedback_type="is-invalid";
 		$feedback_text="Unspecified error or warning";
 		break;
     }
 
-	return '<div class="row"><div class="col-12"><div class="alert alert-' . $feedback_type . '" role="alert">' . $feedback_text . '</div></div></div>';
+	return [$feedback_type, $feedback_text];
 }
+
+
+
 //Create,update or delete a record in the database
 
 function phpModifyDB($db_query,  $db_data) {
@@ -134,4 +146,20 @@ function phpSendEmail($to, $subject, $content) {
 		
 }
 }
+
+function phpShowEmailInputValue($user_email) {
+    if ($user_email != "") {
+        $content="value='" . $user_email . "'";
+    }else{
+        $content="";
+    }
+
+    return $content;
+}
+
+
+
+
+
+
 ?>
