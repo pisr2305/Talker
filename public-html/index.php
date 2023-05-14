@@ -14,14 +14,14 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!--Talker CSS -->
+   <link rel="stylesheet" href="talker.css">
+
+
   </head>
   <body>
   <div class="container">
-	<div class="row justify-content-md-center">
-		<div class="col-12 col-md-auto"><h1>TALKER </h1></div>
-	</div>
-
-	<hr><br>
+	
 
    <!--SYSTEM-WIDE FEEDBACK -->
   <?php if (isset($_SESSION["msgid"]) && $_SESSION["msgid"]!="" && phpShowSystemFeedback($_SESSION["msgid"])[0]!="") { ?>
@@ -37,10 +37,29 @@
 <?php } ?>
 <!-- SYSTEM-WIDE FEEDBACK -->
 
+<div class="row sign-in-row">
+	<div class="col-lg-6"><h1>TALKER</h1></div>
+	<div class="col-lg-6">
+		<form name="formSignIn" action="signin.ctrl.php" method="post" novalidate>
+			<div class="form-inline">
+				<label class="sr-only" for="formSignInEmail">Email</label>
+				<input type="email" class="form-control form-control-sm mb-2 mr-sm-2 mb-sm-0" id="formSignInEmail" name="formSignInEmail" placeholder="Email" onkeyup="jsSignInValidateEmail()">
+
+				<label class="sr-only" for="formSignInPassword">Password</label>
+				<input type="password" class="form-control form-control-sm mb-2 mr-sm-2 mb-sm-0" id="formSignInPassword" name="formSignInPassword" placeholder="Password" onkeyup="jsSignInValidatePassword()">
+
+				<button type="submit" id="formSignInSubmit" class="btn btn-primary btn-sm">Sign In</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<h4> Create a new account</h4>
+<hr>
 
 
 	<div class="row">
-		<div class="col-6">
+		<div class="col-lg-6">
 			<form name= "formSignUp" action="signup.ctrl.php" method="post" novalidate>
 				<div class="form-group">
 					<label for="formSignUpEmail">Email address</label>
@@ -77,7 +96,7 @@
 			</form>
 		</div>
 
-		<div class="col-6">
+		<div class="col-lg-6">
 			<p>Hello and welcome to Talker! We are very happy that you want to join our great community!</p>
 			<p>Please, enter your email and password. Your must have access to your email because we will send
           a confirmation code to that address. Your password must be between 8 and 16 characters long, with at
@@ -92,14 +111,20 @@
 	
 <script>
       var jsSignUpEmail = document.getElementById("formSignUpEmail");
+      var jsSignInEmail = document.getElementById("formSignInEmail");
       var jsEmailRegexPattern = /^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/;
       var jsSignUpPassword = document.getElementById("formSignUpPassword");
+      var jsSignInPassword = document.getElementById("formSignInPassword");
       var jsSignUpPasswordConf = document.getElementById("formSignUpPasswordConf");
       var jsPasswordRegexPattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}/;
       
       document.getElementById("formSignUpSubmit").disabled = true;
       document.getElementById("formSignUpSubmit").classList.remove("btn-success");
       document.getElementById("formSignUpSubmit").classList.add("btn-danger");
+      document.getElementById("formSignInSubmit").disabled = true;
+      document.getElementById("formSignInSubmit").classList.remove("btn-success");
+      document.getElementById("formSignInSubmit").classList.add("btn-danger");
+
 
       function jsSignUpSubmitEnable() {
 	if (jsEmailRegexPattern.test(jsSignUpEmail.value) && jsPasswordRegexPattern.test(jsSignUpPassword.value) && jsSignUpPassword.value == jsSignUpPasswordConf.value) {
@@ -116,12 +141,24 @@
   }
 
 }
+function jsSignInSubmitEnable() {
+	if (jsEmailRegexPattern.test(jsSignInEmail.value) && jsPasswordRegexPattern.test(jsSignInPassword.value)) {
+		document.getElementById("formSignInSubmit").disabled = false;
+		document.getElementById("formSignInSubmit").classList.remove("btn-danger");
+		document.getElementById("formSignInSubmit").classList.add("btn-success");
+	}else{
+		document.getElementById("formSignInSubmit").disabled = true;
+		document.getElementById("formSignInSubmit").classList.remove("btn-success");
+		document.getElementById("formSignInSubmit").classList.add("btn-danger");
+	}
+}
+
 
 
       function jsSignUpValidateEmail() {
         jsSignUpSubmitEnable();
 	if(!jsEmailRegexPattern.test(jsSignUpEmail.value)) {
-		if (!document.getElementById("formSignUpEmailInvalidFeedback")) {
+		 if  (!document.getElementById("formSignUpEmailInvalidFeedback")) {
 			jsSignUpEmail.classList.add("is-invalid");
 			var newElement = document.createElement("div");
 			newElement.setAttribute("id", "formSignUpEmailInvalidFeedback");
@@ -129,16 +166,25 @@
 			var newElementContent = document.createTextNode("This is not a valid email address");
 			newElement.appendChild(newElementContent);
 			jsSignUpEmail.parentNode.insertBefore(newElement, jsSignUpEmail.nextSibling);
-		
-  }
+     }
 	} else {
-		if (document.getElementById("formSignUpEmailInvalidFeedback")) {
-      document.getElementById("formSignUpEmailInvalidFeedback").parentElement.removeChild(document.getElementById("formSignUpEmailInvalidFeedback"));
-    }
+		
     jsSignUpEmail.classList.remove("is-invalid");
     jsSignUpEmail.classList.add("is-valid");
 	}
 }
+
+function jsSignInValidateEmail() {
+        jsSignInSubmitEnable();
+	if(!jsEmailRegexPattern.test(jsSignInEmail.value)) {
+			jsSignInEmail.classList.add("is-invalid");
+	
+	} else {
+    jsSignInEmail.classList.remove("is-invalid");
+    jsSignInEmail.classList.add("is-valid");
+	}
+}
+
 
       function jsSignUpValidatePassword(){
         jsSignUpSubmitEnable();
@@ -180,6 +226,16 @@
 		  
         }
       }
+      function jsSignInValidatePassword() {
+        jsSignInSubmitEnable();
+	if(!jsPasswordRegexPattern.test(jsSignInPassword.value)) {
+			jsSignInPassword.classList.add("is-invalid");
+	
+	} else {
+    jsSignInPassword.classList.remove("is-invalid");
+    jsSignInPassword.classList.add("is-valid");
+	}
+}
 
 </script>
 
