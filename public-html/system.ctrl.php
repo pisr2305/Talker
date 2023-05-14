@@ -32,10 +32,30 @@ function phpShowFeedback($feedback_id) {
 		$feedback_type="danger";
 		$feedback_text="This email is already used!";
 		break;
-       
-		case "811":
+
+		case"804":
+			$feedback_type="danger";
+			$feedback_text="This email is already used!";
+		break;
+
+		case"805":
+		$feedback_type="danger";
+		$feedback_text="This email is not registered";
+		break;
+
+		case"806":
+		$feedback_type="danger";
+		$feedback_text="Your account has been already activated!";
+		break;
+
+		case"807":
+		$feedback_type="danger";
+		$feedback_text="Verification link is corrupted";
+		break;
+
+        case "811":
 		$feedback_type="success";
-		$feedback_text="You have been successfully signed up";
+		$feedback_text="Your account has been activated, you can sign in!";
 		break;
 
 		case "812":
@@ -109,9 +129,9 @@ function phpSendEmail($to, $subject, $content) {
 	//send the message, check for errors
 	if (!$mail->send()) {
 		echo "Mailer Error: " . $mail->ErrorInfo;
-	} else {
-		$_SESSION["msgid"] = "812";
-	}
-	}
-
+	} else  {
+		$_SESSION["msgid"]= "812";
+		
+}
+}
 ?>
