@@ -21,8 +21,8 @@
 
 		if (!is_array($dbUserRow)) { //even regex compliant attempt can result in nonexistent record
 			//echo "regex ok -> user does not exist -> wrong email or password -> feedback message";
-			//$_SESSION["msgid"] = "";
-			//header('Location: index.php');
+		    $_SESSION["msgid"] = "808";
+			header('Location: index.php');
 
 		} else if (!password_verify($user_password, $dbUserRow["user_password"])) { //user OK, password WRONG
 
@@ -32,7 +32,7 @@
 
 		} else if (password_verify($user_password, $dbUserRow["user_password"]) && $dbUserRow["user_verified"] != 1 ) { // user OK, password OK, not activated
 
-			echo "user ok, password ok -> account has not been yet activated -> feedback message";
+			//echo "user ok, password ok -> account has not been yet activated -> feedback message";
 			$_SESSION["msgid"] = "809";
 			header('Location: index.php');
 
@@ -40,13 +40,15 @@
 
 			//echo "user ok, password ok, activation ok -> allow user in the system -> feedback message";
 			$_SESSION["uid"] = $dbUserRow["user_id"];
+			setcookie("cookieUserEmail", $user_email, time()+60);
+			setcookie("cookieUserPassword", $dbUserRow["user_password"], time()+60);
 			header('Location: gate.php');
 		}
 
 
 	} else { //not regex pattern compliant -> cannot be in the database, don't query the database, return feedback
 
-		echo "not regex compliant -> wrong email or password -> feedback message";
+		//echo "not regex compliant -> wrong email or password -> feedback message";
 		$_SESSION["msgid"] = "808";
 		header('Location: index.php');
 	}
