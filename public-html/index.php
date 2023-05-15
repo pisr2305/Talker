@@ -2,6 +2,7 @@
 
 session_start();
 require('system.ctrl.php');
+ 
 
 //if session uid or cookie uid is not empty redirect to gate.php
 if ($_SESSION["uid"]!="" || $_COOKIE["cookieUserEmail"]!="") {
@@ -118,10 +119,10 @@ if ($_SESSION["uid"]!="" || $_COOKIE["cookieUserEmail"]!="") {
 </div>
 <?php
 	//empty the msgid id only if no user is signed in
-	if ($_SESSION["uid"]=="" || $_COOKIE["cookieUserEmail"]=="") {
-		$_SESSION["msgid"]="";
-	}
-	$_SESSION["formSignUpEmail"]="";
+   if ($_SESSION["uid"]=="" || $_COOKIE["cookieUserEmail"]=="") {
+	    	$_SESSION["msgid"]="";
+	   }
+	   $_SESSION["formSignUpEmail"]="";
 ?>
 
 	

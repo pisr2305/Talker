@@ -8,8 +8,7 @@
 		$_SESSION["uid"]="";
         setcookie("cookieUserEmail", '', time()-3600);
 		setcookie("cookieUserPassword", '', time()-3600);
-
-		header('Location: index.php');
+        header('Location: index.php');
 	}else{
 		header('Location: index.php');
 	}
