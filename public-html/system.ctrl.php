@@ -9,10 +9,19 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-
 // Place directly inside Bootstrap container to keep the right structure of Bootstrap document
 function phpShowSystemFeedback($feedback_id) {
 	switch ($feedback_id) {
+		case"211":
+		$feedback_type="success";
+		$feedback_text="Data updated successfully";
+		break;
+
+		case"212":
+		$feedback_type="success";
+		$feedback_text="Data removed successfully";
+		break;
+	
 	     case"804":
 		$feedback_type="danger";
 		$feedback_text="This email is already used!";

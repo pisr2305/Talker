@@ -57,7 +57,7 @@ if (!isset($_SESSION["uid"]) || $_SESSION["uid"]=="") {
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">TALKER</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+		<button class ="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
@@ -105,11 +105,7 @@ if (!isset($_SESSION["uid"]) || $_SESSION["uid"]=="") {
 
 
         
-        <?php echo "User id is: " . $_SESSION["uid"]; ?>
-        <br>
-        <?php echo "cookieUserEmail: " . @$_COOKIE["cookieUserEmail"];  ?>
-        <br>
-        <?php echo "cookieUserPassword: " . @$_COOKIE["cookieUserPassword"];   ?>
+
 
 
 
